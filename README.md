@@ -31,6 +31,45 @@
 $ npm install
 ```
 
+## Database Setup
+
+This project uses Prisma with MySQL. Follow these steps to set up the database:
+
+### 1. Environment Configuration
+
+Create a `.env` file in the root directory with the following content:
+
+```env
+DATABASE_URL="mysql://root:password@localhost:3306/movies_db"
+PORT=3000
+NODE_ENV=development
+```
+
+**Note:** Update the DATABASE_URL with your MySQL credentials and database name.
+
+### 2. Database Setup
+
+```bash
+# Generate Prisma client
+$ npm run prisma:generate
+
+# Create and apply database migrations
+$ npm run prisma:migrate
+
+# Or push schema changes directly (for development)
+$ npm run db:push
+```
+
+### 3. Database Management
+
+```bash
+# Open Prisma Studio (database GUI)
+$ npm run prisma:studio
+
+# Reset database (drops all data)
+$ npm run prisma:reset
+```
+
 ## Compile and run the project
 
 ```bash

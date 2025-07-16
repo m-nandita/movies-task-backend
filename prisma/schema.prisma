@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model movie {
+  id            Int       @id @default(autoincrement())
+  title         String?   @db.VarChar(150)
+  publishedYear Int?
+  posterUrl     String?   @db.VarChar(1000)
+  createdBy     Int?
+  createdAt     DateTime? @db.DateTime(0)
+  updatedAt     DateTime? @db.DateTime(0)
+  user          user?     @relation(fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_id")
+
+  @@index([createdBy], map: "fk_user_id_idx")
+}
+
+model user {
+  id           Int       @id @default(autoincrement())
+  username     String?   @db.VarChar(50)
+  email        String?   @unique(map: "email_UNIQUE") @db.VarChar(250)
+  password     String?   @db.VarChar(1000)
+  refreshToken String?   @db.VarChar(1000)
+  tokenVersion Int?      @default(0)
+  createdAt    DateTime? @db.DateTime(0)
+  updatedAt    DateTime? @db.DateTime(0)
+  movie        movie[]
+}
