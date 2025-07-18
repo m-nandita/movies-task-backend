@@ -6,6 +6,7 @@ import {
   HttpStatus,
   UseGuards,
   Req,
+  Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
@@ -34,7 +35,7 @@ export class AuthController {
     res.status(HttpStatus.OK).send({ accessToken, refreshToken, user });
   }
 
-  @Post('logout')
+  @Get('logout')
   @UseGuards(AuthGuard)
   async logout(@Req() req, @Res() res: Response) {
     await this.authService.logout(req.user.id);
